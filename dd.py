@@ -30,7 +30,7 @@ def download_posts_data(instagram_data_path, posts_per_account, pickle_directory
         for data in instagram_data:
             account_name = data.get('account_name')
             school_id = data.get('school')
-
+    
             if account_name is None or not account_name:
                 print("Error: 'account_name' key is missing or empty in account data. Skipping.")
                 continue
@@ -49,6 +49,13 @@ def download_posts_data(instagram_data_path, posts_per_account, pickle_directory
             for post in profile.get_posts():
                 if count >= posts_per_account:
                     break
+            
+                post_id = str(post.mediaid)
+
+                # Проверка, был ли этот пост загружен ранее
+                if any(entry['id'] == post_id for entry in accounts_data):
+                    print(f"Post {post_id} already downloaded. Skipping.")
+                    continue
 
                 post_data = {
                     'id': str(post.mediaid),
@@ -90,7 +97,7 @@ def download_posts_data(instagram_data_path, posts_per_account, pickle_directory
                         post_data['qr_code'] = qr_code_path  # Обновляем qr_code для всего поста
                         post_data['media'].append(media_data)
 
-                    elif post.get_sidecar_nodes():
+                    elif post.typename == 'GraphSidecar':
                         print('karusel')
                         # Если у поста карусель изображений
                         for index, node in enumerate(post.get_sidecar_nodes()):
@@ -161,9 +168,9 @@ def download_posts_data(instagram_data_path, posts_per_account, pickle_directory
         print("Ошибка при загрузке данных:", e)
 
 if __name__ == "__main__":
-    instagram_data_path = 'C:/Users/dg078/Desktop/instaloader/school_socialmedia_data.pickle'
+    instagram_data_path = 'C:/Users/Professional/Desktop/instapars/instapars/school_socialmedia_data.pickle'
     posts_per_account = 1
-    pickle_directory = 'C:/Users/dg078/Desktop/instaloader'
-    media_directory = 'C:/Users/dg078/Desktop/instaloader/media'
+    pickle_directory = 'C:/Users/Professional/Desktop/instapars/instapars'
+    media_directory = 'C:/Users/Professional/Desktop/instapars/instapars/media'
 
     download_posts_data(instagram_data_path, posts_per_account, pickle_directory, media_directory)

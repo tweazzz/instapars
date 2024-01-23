@@ -6,7 +6,7 @@
         "media": [
             {}
         ],
-        "qr_code": "C:/Users/dg078/Desktop/instaloader/media\\3163481109454027959_video_qr.png",
+        "qr_code": "C:/Users/Professional/Desktop/instapars/instapars/media\\3163481109454027959_video_qr.png",
         "login": "damelya_sw_",
         "school": 2
     },
@@ -16,42 +16,44 @@
         "timestamp": 1704602118.0,
         "media": [
             {
-                "post_photos_1": "C:/Users/dg078/Desktop/instaloader/media\\3274943574737327806_0.jpg"
+                "post_photos_1": "C:/Users/Professional/Desktop/instapars/instapars/media\\3274943574737327806_0.jpg"
             },
             {},
             {
-                "post_photos_3": "C:/Users/dg078/Desktop/instaloader/media\\3274943574737327806_2.jpg"
+                "post_photos_3": "C:/Users/Professional/Desktop/instapars/instapars/media\\3274943574737327806_2.jpg"
             },
             {
-                "post_photos_4": "C:/Users/dg078/Desktop/instaloader/media\\3274943574737327806_3.jpg"
+                "post_photos_4": "C:/Users/Professional/Desktop/instapars/instapars/media\\3274943574737327806_3.jpg"
             },
             {},
             {
-                "post_photos_6": "C:/Users/dg078/Desktop/instaloader/media\\3274943574737327806_5.jpg"
+                "post_photos_6": "C:/Users/Professional/Desktop/instapars/instapars/media\\3274943574737327806_5.jpg"
             },
             {
-                "post_photos_7": "C:/Users/dg078/Desktop/instaloader/media\\3274943574737327806_6.jpg"
+                "post_photos_7": "C:/Users/Professional/Desktop/instapars/instapars/media\\3274943574737327806_6.jpg"
             },
             {
-                "post_photos_8": "C:/Users/dg078/Desktop/instaloader/media\\3274943574737327806_7.jpg"
+                "post_photos_8": "C:/Users/Professional/Desktop/instapars/instapars/media\\3274943574737327806_7.jpg"
             },
             {
-                "post_photos_9": "C:/Users/dg078/Desktop/instaloader/media\\3274943574737327806_8.jpg"
+                "post_photos_9": "C:/Users/Professional/Desktop/instapars/instapars/media\\3274943574737327806_8.jpg"
             },
             {
-                "post_photos_10": "C:/Users/dg078/Desktop/instaloader/media\\3274943574737327806_9.jpg"
+                "post_photos_10": "C:/Users/Professional/Desktop/instapars/instapars/media\\3274943574737327806_9.jpg"
             }
         ],
-        "qr_code": "C:/Users/dg078/Desktop/instaloader/media\\3274943574737327806_video_qr.png",
+        "qr_code": "C:/Users/Professional/Desktop/instapars/instapars/media\\3274943574737327806_video_qr.png",
         "login": "lalalalisa_m",
         "school": 1
     },
     {
-        "id": "3286497060159945514",
-        "text": "Drop a ♥️ if you love this.",
-        "timestamp": 1705979403.0,
-        "media": [],
-        "qr_code": "",
+        "id": "3286682398526543474",
+        "text": "Heart less. 🖤",
+        "timestamp": 1706001508.0,
+        "media": [
+            {}
+        ],
+        "qr_code": "C:/Users/Professional/Desktop/instapars/instapars/media\\3286682398526543474_video_qr.png",
         "login": "thinkingmindspage",
         "school": 1
     },
@@ -59,7 +61,11 @@
         "id": "3283390104372649499",
         "text": ".",
         "timestamp": 1705609023.0,
-        "media": [],
+        "media": [
+            {
+                "post_photos_1": "C:/Users/Professional/Desktop/instapars/instapars/media\\3283390104372649499_1.jpg"
+            }
+        ],
         "qr_code": "",
         "login": "jjulikim",
         "school": 2
