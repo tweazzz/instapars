@@ -55,15 +55,12 @@ def download_posts_data(instagram_data_path, posts_per_account, pickle_directory
                     'text': post.caption,
                     'timestamp': post.date_utc.timestamp(),
                     'media': [],
-                    'qr_code': '',  # Создаем пустую строку для qr_code
                     'login': account_name,
                     'school': school_id
                 }
 
                 try:
-                    # Проверяем, есть ли видео в карусели или сам пост является видео
                     if post.is_video:
-                        print('video')
                         # Если у поста видео
                         media_data = {}  # Создаем структуру данных для видео
                         
@@ -87,41 +84,53 @@ def download_posts_data(instagram_data_path, posts_per_account, pickle_directory
                         img.save(qr_code_path)
                         print(f"Generated QR code for video: {qr_code_path}")
 
-                        post_data['qr_code'] = qr_code_path  # Обновляем qr_code для всего поста
+                        media_data['qr_video'] = qr_code_path
                         post_data['media'].append(media_data)
 
                     elif post.get_sidecar_nodes():
-                        print('karusel')
-                        # Если у поста карусель изображений
+                        # Если у поста карусель
+                        has_video_in_carousel = False
+
+                        # Увеличьте время ожидания перед запросом к карусели
+                        time.sleep(random.uniform(10, 15))
+
                         for index, node in enumerate(post.get_sidecar_nodes()):
+                            if index >= 3:  # Устанавливаем максимальное количество изображений в карусели, например, 3
+                                break
+
                             media_data = {}  # Создаем структуру данных для медиа
 
-                            # Добавьте дополнительное время ожидания перед запросом к элементу карусели
-                            time.sleep(random.uniform(3, 6))
-
                             if node.is_video:
-                                # Если у элемента карусели видео, добавим QR-код для видео в карусели
-                                video_url = f"https://www.instagram.com/p/{post.shortcode}/"
-                                qr_code_path = os.path.join(media_directory, f"{post.mediaid}_video_qr.png")
+                                # Если у элемента карусели видео и это первый раз, добавим QR-код для основного видео
+                                if not has_video_in_carousel:
+                                    video_url = f"https://www.instagram.com/p/{post.shortcode}/"
+                                    qr_code_path = os.path.join(media_directory, f"{post.mediaid}_video_qr_{index}.png")
 
-                                # Генерация QR-кода для видео
-                                qr = qrcode.QRCode(
-                                    version=1,
-                                    error_correction=qrcode.constants.ERROR_CORRECT_L,
-                                    box_size=10,
-                                    border=4,
-                                )
-                                qr.add_data(video_url)
-                                qr.make(fit=True)
+                                    # Генерация QR-кода для видео в карусели
+                                    qr = qrcode.QRCode(
+                                        version=1,
+                                        error_correction=qrcode.constants.ERROR_CORRECT_L,
+                                        box_size=10,
+                                        border=4,
+                                    )
+                                    qr.add_data(video_url)
+                                    qr.make(fit=True)
 
-                                img = qr.make_image(fill_color="black", back_color="white")
-                                img.save(qr_code_path)
-                                print(f"Generated QR code for video: {qr_code_path}")
+                                    img = qr.make_image(fill_color="black", back_color="white")
+                                    img.save(qr_code_path)
+                                    print(f"Generated QR code for video in carousel: {qr_code_path}")
+                                    media_data['qr_video'] = qr_code_path
+                                    has_video_in_carousel = True
 
-                                post_data['qr_code'] = qr_code_path  # Обновляем qr_code для всего поста
-                                post_data['media'].append(media_data) # Обновляем qr_code для текущего элемента карусели
+                                    # Добавьте дополнительное время ожидания перед запросом к другим элементам карусели
+                                    time.sleep(random.uniform(3, 6))
+                                else:
+                                    # Пропускаем QR-коды для других видео в карусели
+                                    continue
                             else:
                                 # Если у элемента карусели изображение
+
+                                # Добавьте дополнительное время ожидания перед запросом к изображению
                                 time.sleep(random.uniform(3, 6))
 
                                 media_data[f'post_photos_{index + 1}'] = os.path.join(media_directory, f"{post.mediaid}_{index}.jpg")
@@ -131,14 +140,15 @@ def download_posts_data(instagram_data_path, posts_per_account, pickle_directory
                                 print(f"Downloaded media for post {post.mediaid}: {media_data}")
 
                     else:
-                        print('foto')
                         # Если у поста только одно изображение
-                        media_data = {}  # Создаем структуру данных для медиа
+                        media_data = {}  # Создаем структуру данных для изображения
+                        
+                        # Добавьте дополнительное время ожидания перед запросом к изображению
                         time.sleep(random.uniform(3, 6))
-
-                        media_data[f'post_photos_1'] = os.path.join(media_directory, f"{post.mediaid}_1.jpg")
-                        with open(media_data[f'post_photos_1'], 'wb') as media_file:
-                            media_file.write(requests.get(post.url).content)
+                        
+                        media_data['post_photos_1'] = os.path.join(media_directory, f"{post.mediaid}_1.jpg")
+                        with open(media_data['post_photos_1'], 'wb') as image_file:
+                            image_file.write(requests.get(post.url).content)
                         post_data['media'].append(media_data)
                         print(f"Downloaded media for post {post.mediaid}: {media_data}")
 
@@ -162,7 +172,7 @@ def download_posts_data(instagram_data_path, posts_per_account, pickle_directory
 
 if __name__ == "__main__":
     instagram_data_path = 'C:/Users/dg078/Desktop/instaloader/school_socialmedia_data.pickle'
-    posts_per_account = 1
+    posts_per_account = 3
     pickle_directory = 'C:/Users/dg078/Desktop/instaloader'
     media_directory = 'C:/Users/dg078/Desktop/instaloader/media'
 

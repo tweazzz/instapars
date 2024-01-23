@@ -2,13 +2,15 @@
     {
         "id": 3,
         "type": "instagram",
-        "account_name": "shahrizada_s",
+        "account_name": "https://www.instagram.com/damelya_sw_/",
+        "qr_code": "https://www.bilimge.kz/media/social_media_qrcodes/qr_code_4RvgSv9.png",
         "school": 2
     },
     {
         "id": 4,
         "type": "instagram",
-        "account_name": "hobbitzce",
+        "account_name": "@tussupov",
+        "qr_code": "https://www.bilimge.kz/media/social_media_qrcodes/qr_code.png",
         "school": 1
     }
 ]
